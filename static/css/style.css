@@ -1,6 +1,6 @@
 /* ==========================================================================
    Shrey's Calc - Modern Scientific Calculator
-   Design System & Styles
+   Adaptive & Responsive Design System for Phones, iPads & Desktops
    ========================================================================== */
 
 :root {
@@ -10,10 +10,10 @@
 
     /* Theme: Dark Nebula (Default) */
     --bg-page: #090a10;
-    --bg-card: rgba(18, 20, 32, 0.72);
+    --bg-card: rgba(18, 20, 32, 0.75);
     --bg-card-border: rgba(255, 255, 255, 0.08);
     --bg-card-border-glow: rgba(99, 102, 241, 0.25);
-    --bg-display: rgba(10, 12, 22, 0.85);
+    --bg-display: rgba(10, 12, 22, 0.88);
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
     --text-muted: #64748b;
@@ -47,7 +47,7 @@
     --btn-eq-text: #ffffff;
     --btn-eq-shadow: 0 8px 24px -4px rgba(168, 85, 247, 0.5);
 
-    --panel-bg: rgba(15, 17, 28, 0.92);
+    --panel-bg: rgba(15, 17, 28, 0.94);
     --panel-border: rgba(255, 255, 255, 0.08);
 
     /* Ambient Lighting */
@@ -59,7 +59,7 @@
 /* Theme: Cyberpunk Neon */
 [data-theme="cyberpunk"] {
     --bg-page: #05060b;
-    --bg-card: rgba(14, 16, 26, 0.82);
+    --bg-card: rgba(14, 16, 26, 0.85);
     --bg-card-border: rgba(0, 240, 255, 0.2);
     --bg-card-border-glow: rgba(255, 0, 128, 0.4);
     --bg-display: rgba(6, 8, 16, 0.95);
@@ -106,7 +106,7 @@
 /* Theme: Silk Light */
 [data-theme="light"] {
     --bg-page: #f1f5f9;
-    --bg-card: rgba(255, 255, 255, 0.85);
+    --bg-card: rgba(255, 255, 255, 0.88);
     --bg-card-border: rgba(0, 0, 0, 0.08);
     --bg-card-border-glow: rgba(99, 102, 241, 0.15);
     --bg-display: rgba(248, 250, 252, 0.95);
@@ -150,29 +150,39 @@
     --glow-3: rgba(14, 165, 233, 0.08);
 }
 
-/* Reset and Base Styles */
-* {
+/* Reset and Global Styles */
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
 }
 
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
 body {
     font-family: var(--font-main);
     background-color: var(--bg-page);
     color: var(--text-primary);
-    min-height: 100vh;
+    min-height: 100%;
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow-x: hidden;
     position: relative;
-    padding: 24px 16px;
+    padding: 20px 16px;
+    padding-top: calc(20px + env(safe-area-inset-top));
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
+    padding-left: calc(16px + env(safe-area-inset-left));
+    padding-right: calc(16px + env(safe-area-inset-right));
     transition: background-color 0.35s ease, color 0.35s ease;
 }
 
-/* Animated Ambient Glow Backdrops */
+/* Ambient Glow Orbs */
 .ambient-glow {
     position: fixed;
     border-radius: 50%;
@@ -183,36 +193,36 @@ body {
 }
 
 .glow-1 {
-    width: 480px;
-    height: 480px;
+    width: min(480px, 90vw);
+    height: min(480px, 90vw);
     background: var(--glow-1);
-    top: -120px;
-    left: 10%;
+    top: -100px;
+    left: 5%;
     animation: pulseGlow 12s ease-in-out infinite alternate;
 }
 
 .glow-2 {
-    width: 520px;
-    height: 520px;
+    width: min(520px, 90vw);
+    height: min(520px, 90vw);
     background: var(--glow-2);
-    bottom: -150px;
-    right: 10%;
+    bottom: -120px;
+    right: 5%;
     animation: pulseGlow 15s ease-in-out infinite alternate-reverse;
 }
 
 .glow-3 {
-    width: 380px;
-    height: 380px;
+    width: min(380px, 80vw);
+    height: min(380px, 80vw);
     background: var(--glow-3);
     top: 40%;
-    left: 45%;
+    left: 50%;
     transform: translate(-50%, -50%);
     animation: pulseGlow 10s ease-in-out infinite alternate;
 }
 
 @keyframes pulseGlow {
     0% { transform: scale(1) translate(0, 0); }
-    100% { transform: scale(1.15) translate(30px, -20px); }
+    100% { transform: scale(1.15) translate(20px, -15px); }
 }
 
 /* Master App Layout Container */
@@ -222,29 +232,29 @@ body {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    gap: 24px;
-    max-width: 1020px;
+    gap: 20px;
+    max-width: 1040px;
     width: 100%;
 }
 
 /* ==========================================================================
-   Calculator Main Card (Glassmorphic)
+   Calculator Card (Glassmorphic Container)
    ========================================================================== */
 .calculator-card {
     background: var(--bg-card);
     backdrop-filter: blur(28px) saturate(180%);
     -webkit-backdrop-filter: blur(28px) saturate(180%);
     border: 1px solid var(--bg-card-border);
-    border-radius: 28px;
+    border-radius: 26px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45),
                 0 0 0 1px var(--bg-card-border),
                 0 0 40px var(--bg-card-border-glow);
     width: 100%;
-    max-width: 460px;
-    padding: 24px;
+    max-width: 480px;
+    padding: 22px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
     transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
@@ -253,7 +263,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 6px;
+    padding-bottom: 4px;
 }
 
 .brand {
@@ -272,6 +282,7 @@ body {
     justify-content: center;
     color: #ffffff;
     box-shadow: 0 4px 12px var(--accent-glow);
+    flex-shrink: 0;
 }
 
 .brand-text {
@@ -295,7 +306,7 @@ body {
 }
 
 .engine-badge {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     color: var(--text-muted);
     display: flex;
     align-items: center;
@@ -321,7 +332,7 @@ body {
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 
 .pill-btn {
@@ -331,10 +342,14 @@ body {
     font-family: var(--font-mono);
     font-size: 0.75rem;
     font-weight: 700;
-    padding: 6px 12px;
-    border-radius: 20px;
+    padding: 6px 11px;
+    border-radius: 18px;
     cursor: pointer;
     transition: all 0.2s ease;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .pill-btn:hover {
@@ -354,6 +369,7 @@ body {
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
 .icon-btn:hover {
@@ -363,7 +379,7 @@ body {
 }
 
 .icon-btn:active {
-    transform: scale(0.94);
+    transform: scale(0.92);
 }
 
 /* ==========================================================================
@@ -373,11 +389,11 @@ body {
     background: var(--bg-display);
     border: 1px solid var(--bg-card-border);
     border-radius: 20px;
-    padding: 16px 20px;
+    padding: 14px 18px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 125px;
+    min-height: 118px;
     box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.25);
     position: relative;
     overflow: hidden;
@@ -392,13 +408,13 @@ body {
 
 .expression-line {
     font-family: var(--font-mono);
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     color: var(--text-secondary);
     white-space: nowrap;
     overflow-x: auto;
     scrollbar-width: none;
     letter-spacing: 0.02em;
-    max-width: 320px;
+    max-width: 80%;
 }
 
 .expression-line::-webkit-scrollbar {
@@ -409,7 +425,7 @@ body {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
     color: var(--text-muted);
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-family: var(--font-main);
     padding: 3px 8px;
     border-radius: 6px;
@@ -426,24 +442,27 @@ body {
 }
 
 .display-main {
-    margin: 6px 0;
+    margin: 4px 0;
     display: flex;
     justify-content: flex-end;
     align-items: baseline;
     overflow: hidden;
+    width: 100%;
 }
 
 .main-number {
     font-family: var(--font-main);
-    font-size: 2.75rem;
+    font-size: clamp(2rem, 6.5vw, 2.75rem);
     font-weight: 700;
     letter-spacing: -0.03em;
     color: var(--text-primary);
     white-space: nowrap;
     overflow-x: auto;
     scrollbar-width: none;
-    line-height: 1.1;
+    line-height: 1.15;
     outline: none;
+    width: 100%;
+    text-align: right;
     transition: font-size 0.15s ease;
 }
 
@@ -510,7 +529,7 @@ body {
 .memory-bar {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
+    gap: 7px;
 }
 
 .mem-btn {
@@ -528,6 +547,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 3px;
+    min-height: 36px;
 }
 
 .mem-btn:hover {
@@ -536,7 +556,7 @@ body {
 }
 
 .mem-btn:active {
-    transform: scale(0.95);
+    transform: scale(0.94);
 }
 
 .scientific-toggle svg {
@@ -553,10 +573,10 @@ body {
 .scientific-panel {
     display: none;
     grid-template-columns: repeat(5, 1fr);
-    gap: 7px;
-    padding: 10px;
+    gap: 6px;
+    padding: 8px;
     background: rgba(0, 0, 0, 0.18);
-    border-radius: 18px;
+    border-radius: 16px;
     border: 1px solid var(--bg-card-border);
     animation: slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -566,7 +586,7 @@ body {
 }
 
 @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-8px); }
+    from { opacity: 0; transform: translateY(-6px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
@@ -575,13 +595,17 @@ body {
     border: 1px solid var(--btn-sci-border);
     color: var(--btn-sci-text);
     font-family: var(--font-mono);
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
     padding: 9px 0;
+    min-height: 38px;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.18s ease;
     user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-sci:hover {
@@ -601,20 +625,20 @@ body {
 }
 
 /* ==========================================================================
-   Standard Keypad Grid
+   Standard Keypad Grid (4-column grid)
    ========================================================================== */
 .keypad-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 9px;
 }
 
 .btn {
     font-family: var(--font-main);
     font-size: 1.25rem;
     font-weight: 500;
-    height: 54px;
-    border-radius: 16px;
+    height: 52px;
+    border-radius: 15px;
     border: 1px solid transparent;
     cursor: pointer;
     display: flex;
@@ -623,7 +647,7 @@ body {
     position: relative;
     user-select: none;
     transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 .btn:active, .btn.keyboard-active {
@@ -641,7 +665,7 @@ body {
 .btn-digit:hover {
     background: var(--btn-digit-hover);
     border-color: rgba(255, 255, 255, 0.15);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
 /* Operators */
@@ -649,14 +673,14 @@ body {
     background: var(--btn-op-bg);
     border-color: var(--btn-op-border);
     color: var(--btn-op-text);
-    font-size: 1.45rem;
+    font-size: 1.4rem;
     font-weight: 600;
 }
 
 .btn-operator:hover {
     background: var(--btn-op-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 14px var(--accent-glow);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--accent-glow);
 }
 
 /* Special (AC, DEL, %) */
@@ -664,13 +688,13 @@ body {
     background: var(--btn-special-bg);
     border-color: var(--btn-special-border);
     color: var(--btn-special-text);
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 600;
 }
 
 .btn-special:hover {
     background: var(--btn-special-hover);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
 /* Equals */
@@ -678,40 +702,41 @@ body {
     background: var(--btn-eq-bg);
     border: none;
     color: var(--btn-eq-text);
-    font-size: 1.6rem;
+    font-size: 1.55rem;
     font-weight: 700;
     box-shadow: var(--btn-eq-shadow);
 }
 
 .btn-equals:hover {
     filter: brightness(1.1);
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 10px 28px -4px rgba(168, 85, 247, 0.65);
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 8px 24px -4px rgba(168, 85, 247, 0.65);
 }
 
 /* Footer / Tips */
 .calc-footer {
     text-align: center;
-    padding-top: 4px;
+    padding-top: 2px;
 }
 
 .keyboard-hint {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: var(--text-muted);
     letter-spacing: 0.01em;
 }
 
 /* ==========================================================================
-   History Sidebar / Panel
+   History Sidebar / Drawer
    ========================================================================== */
 .history-panel {
     background: var(--panel-bg);
     backdrop-filter: blur(28px);
     -webkit-backdrop-filter: blur(28px);
     border: 1px solid var(--panel-border);
-    border-radius: 28px;
+    border-radius: 26px;
     width: 320px;
-    height: 720px;
+    height: 680px;
+    max-height: 90vh;
     display: flex;
     flex-direction: column;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
@@ -723,7 +748,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 20px;
+    padding: 16px 18px;
     border-bottom: 1px solid var(--panel-border);
 }
 
@@ -765,7 +790,7 @@ body {
 .history-list {
     flex: 1;
     overflow-y: auto;
-    padding: 12px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -777,11 +802,11 @@ body {
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid var(--bg-card-border);
     border-radius: 12px;
-    padding: 10px 14px;
+    padding: 9px 12px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 2px;
     transition: all 0.2s ease;
 }
 
@@ -793,7 +818,7 @@ body {
 
 .history-item-expr {
     font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--text-muted);
     text-align: right;
     word-break: break-all;
@@ -801,7 +826,7 @@ body {
 
 .history-item-result {
     font-family: var(--font-main);
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--accent-cyan);
     text-align: right;
@@ -816,27 +841,25 @@ body {
     color: var(--text-muted);
     text-align: center;
     gap: 4px;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
 }
 
 .empty-history-message small {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     opacity: 0.7;
 }
 
-/* ==========================================================================
-   Toast Notification
-   ========================================================================== */
+/* Toast */
 .toast {
     position: fixed;
-    bottom: 24px;
+    bottom: calc(20px + env(safe-area-inset-bottom));
     left: 50%;
     transform: translateX(-50%) translateY(100px);
     background: rgba(15, 23, 42, 0.95);
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #ffffff;
     font-size: 0.85rem;
-    padding: 10px 18px;
+    padding: 9px 16px;
     border-radius: 12px;
     backdrop-filter: blur(16px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
@@ -852,14 +875,161 @@ body {
 }
 
 /* ==========================================================================
-   Responsive Adaptations
+   TABLET & IPAD ADAPTATIONS (601px - 1024px)
    ========================================================================== */
-@media (max-width: 820px) {
+@media (min-width: 601px) and (max-width: 1024px) {
+    body {
+        padding: 16px;
+    }
+
+    .app-layout {
+        gap: 16px;
+        max-width: 900px;
+    }
+
+    .calculator-card {
+        max-width: 460px;
+        padding: 20px;
+    }
+
+    .btn {
+        height: 52px;
+    }
+
+    .btn-sci {
+        min-height: 40px;
+        font-size: 0.85rem;
+    }
+
+    .history-panel {
+        width: 280px;
+        height: 650px;
+    }
+}
+
+/* ==========================================================================
+   MOBILE PHONE ADAPTATIONS (iPhone & Android <= 600px)
+   ========================================================================== */
+@media (max-width: 600px) {
+    body {
+        padding: 8px 6px;
+        padding-top: calc(8px + env(safe-area-inset-top));
+        padding-bottom: calc(8px + env(safe-area-inset-bottom));
+        align-items: flex-start;
+    }
+
     .app-layout {
         flex-direction: column;
         align-items: center;
+        width: 100%;
+        gap: 0;
     }
 
+    .calculator-card {
+        max-width: 100%;
+        width: 100%;
+        padding: 14px 12px;
+        border-radius: 20px;
+        gap: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .calc-header {
+        padding-bottom: 2px;
+    }
+
+    .brand-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+    }
+
+    .app-title {
+        font-size: 1.05rem;
+    }
+
+    .engine-badge {
+        font-size: 0.64rem;
+    }
+
+    .pill-btn {
+        font-size: 0.7rem;
+        padding: 4px 9px;
+        min-height: 32px;
+    }
+
+    .icon-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+    }
+
+    /* Screen display */
+    .display-container {
+        padding: 10px 14px;
+        min-height: 96px;
+        border-radius: 16px;
+    }
+
+    .expression-line {
+        font-size: 0.82rem;
+    }
+
+    .main-number {
+        font-size: clamp(1.85rem, 8vw, 2.35rem);
+        line-height: 1.1;
+    }
+
+    /* Memory bar */
+    .memory-bar {
+        gap: 5px;
+    }
+
+    .mem-btn {
+        min-height: 32px;
+        padding: 5px 2px;
+        font-size: 0.72rem;
+        border-radius: 8px;
+    }
+
+    /* Scientific Panel on Mobile */
+    .scientific-panel {
+        gap: 5px;
+        padding: 6px;
+        border-radius: 12px;
+    }
+
+    .btn-sci {
+        min-height: 34px;
+        padding: 6px 0;
+        font-size: 0.76rem;
+        border-radius: 8px;
+    }
+
+    /* Keypad Grid on Mobile */
+    .keypad-grid {
+        gap: 6px;
+    }
+
+    .btn {
+        height: clamp(44px, 6.2vh, 50px);
+        font-size: 1.15rem;
+        border-radius: 12px;
+    }
+
+    .btn-operator {
+        font-size: 1.3rem;
+    }
+
+    .btn-equals {
+        font-size: 1.4rem;
+    }
+
+    .keyboard-hint {
+        display: none; /* Hide on mobile to save vertical space */
+    }
+
+    /* History Bottom Sheet Drawer on Mobile */
     #close-history-btn {
         display: flex;
     }
@@ -870,13 +1040,37 @@ body {
         left: 0;
         right: 0;
         width: 100%;
-        height: 65vh;
-        border-radius: 28px 28px 0 0;
-        z-index: 50;
+        height: 70vh;
+        max-height: 70vh;
+        border-radius: 22px 22px 0 0;
+        z-index: 1000;
         transform: translateY(105%);
+        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
+        padding-bottom: env(safe-area-inset-bottom);
     }
 
     .history-panel.mobile-open {
         transform: translateY(0);
+    }
+}
+
+/* Extra small devices (iPhone SE, small screens <= 360px) */
+@media (max-width: 360px) {
+    .calculator-card {
+        padding: 10px 8px;
+    }
+
+    .btn {
+        height: 42px;
+        font-size: 1.05rem;
+    }
+
+    .btn-sci {
+        min-height: 30px;
+        font-size: 0.72rem;
+    }
+
+    .main-number {
+        font-size: 1.75rem;
     }
 }

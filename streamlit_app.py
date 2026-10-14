@@ -147,6 +147,85 @@ st.markdown("""
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
+
+    /* Tablet & iPad Adaptations (max-width: 900px) */
+    @media (max-width: 900px) {
+        .block-container {
+            padding-top: 1.8rem !important;
+            padding-bottom: 3rem !important;
+            padding-left: 1.2rem !important;
+            padding-right: 1.2rem !important;
+            max-width: 95% !important;
+        }
+        div.stButton > button {
+            height: 48px !important;
+            font-size: 1rem !important;
+        }
+        .calc-screen-main {
+            font-size: 2.3rem !important;
+        }
+    }
+
+    /* Mobile Phone Adaptations (max-width: 600px) */
+    @media (max-width: 600px) {
+        .block-container {
+            padding-top: 0.8rem !important;
+            padding-bottom: 2rem !important;
+            padding-left: 0.4rem !important;
+            padding-right: 0.4rem !important;
+            max-width: 100% !important;
+        }
+
+        /* Prevent Streamlit columns from breaking awkwardly */
+        div[data-testid="column"] {
+            padding: 0 1.5px !important;
+            min-width: 0 !important;
+        }
+
+        div.stButton > button {
+            height: 42px !important;
+            min-height: 42px !important;
+            font-size: 0.88rem !important;
+            padding: 2px !important;
+            border-radius: 8px !important;
+        }
+
+        .calc-screen {
+            padding: 10px 14px !important;
+            border-radius: 16px !important;
+            margin-bottom: 10px !important;
+        }
+
+        .calc-screen-main {
+            font-size: 1.85rem !important;
+            line-height: 1.15 !important;
+        }
+
+        .prev-formula {
+            font-size: 0.8rem !important;
+        }
+
+        .brand-title {
+            font-size: 1.35rem !important;
+        }
+
+        .badge-pill {
+            font-size: 0.65rem !important;
+            padding: 2px 6px !important;
+        }
+    }
+
+    /* Small Phones (max-width: 380px) */
+    @media (max-width: 380px) {
+        div.stButton > button {
+            height: 38px !important;
+            min-height: 38px !important;
+            font-size: 0.78rem !important;
+        }
+        .calc-screen-main {
+            font-size: 1.6rem !important;
+        }
+    }
 </style>
 """, unsafe_allow_html=True)
 
